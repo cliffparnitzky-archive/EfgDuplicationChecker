@@ -13,4 +13,4 @@ The extension is not published in contao extension repository. Install it manual
 Tracker
 -------
 
-https://github.com/cliffparnitzky/BirthdayMailer/issues
+https://github.com/cliffparnitzky/EfgDuplicationChecker/issues
