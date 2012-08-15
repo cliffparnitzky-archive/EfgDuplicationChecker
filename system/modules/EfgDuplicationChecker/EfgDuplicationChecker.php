@@ -42,16 +42,25 @@ class EfgDuplicationChecker extends Backend
 	{
 		$this->import('Database');
 		$this->import('Input');
-		
+
 		$arrDuplicationCheckingFields = deserialize($arrData['duplicationCheckingFields']);
 		if ($arrData['duplicationCheckingActive'] && in_array($objWidget->name, $arrDuplicationCheckingFields)) {
+					
+			// will be null, if the record is new
+			// in the other case the fields of this record must be excluded while duplication checking
+			$dataRecordId = $this->Input->get('details');
+			
 			$arrParams = array();
 			$arrParams[] = $arrData['id'];
 			foreach ($arrDuplicationCheckingFields as $fieldName) {
 				$arrParams[] = $this->Input->postRaw($fieldName);
 			}
+			
+			if (strlen($dataRecordId) > 0) {
+				$arrParams[] = $dataRecordId;
+			}
 
-			$records = $this->Database->prepare($this->buildQueryString($arrDuplicationCheckingFields))->execute($arrParams);
+			$records = $this->Database->prepare($this->buildQueryString($arrDuplicationCheckingFields, $dataRecordId))->execute($arrParams);
 			if ($records->next()) {
 				$fields = array();
 				foreach ($arrDuplicationCheckingFields as $fieldName) {
@@ -68,7 +77,7 @@ class EfgDuplicationChecker extends Backend
 	/**
 	 * build the sql query
 	 */
-	private function buildQueryString ($arrDuplicationCheckingFields) {
+	private function buildQueryString ($arrDuplicationCheckingFields, $dataRecordId) {
 		$queryString = "SELECT ";
 		
 		$fields = array();
@@ -90,6 +99,10 @@ class EfgDuplicationChecker extends Backend
 		foreach ($arrDuplicationCheckingFields as $fieldName) {
 			$queryString .= "AND fdd_" . $fieldName . ".ff_name = '" . $fieldName . "' AND fdd_" . $fieldName . ".value = ? ";
 		}
+		
+		if (strlen($dataRecordId) > 0) {
+			$queryString .= "AND NOT fd.id = ? ";
+		} 
 		$queryString .= "ORDER BY fd.tstamp DESC";
 		
 		return $queryString;
