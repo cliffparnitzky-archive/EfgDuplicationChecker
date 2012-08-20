@@ -53,7 +53,7 @@ class EfgDuplicationChecker extends Backend
 			$arrParams = array();
 			$arrParams[] = $arrData['id'];
 			foreach ($arrDuplicationCheckingFields as $fieldName) {
-				$arrParams[] = $this->Input->postRaw($fieldName);
+				$arrParams[] = trim($this->Input->postRaw($fieldName));
 			}
 			
 			if (strlen($dataRecordId) > 0) {
