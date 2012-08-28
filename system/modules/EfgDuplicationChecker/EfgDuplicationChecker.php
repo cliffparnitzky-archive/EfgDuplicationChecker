@@ -48,7 +48,7 @@ class EfgDuplicationChecker extends Backend
 					
 			// will be null, if the record is new
 			// in the other case the fields of this record must be excluded while duplication checking
-			$dataRecordId = $this->Input->get('details');
+			$dataRecordId = $this->Input->get($this->getFormdataDetailsKey());
 			
 			$arrParams = array();
 			$arrParams[] = $arrData['id'];
@@ -132,6 +132,30 @@ class EfgDuplicationChecker extends Backend
 		}
 
 		return $fields;
+	}
+	
+	private function getFormdataDetailsKey ()
+	{
+		$strFormdataDetailsKey = 'details';
+
+		// get params of related listing formdata
+		$intListingId = intval($_SESSION['EFP']['LISTING_MOD']['id']);
+		if ($intListingId)
+		{
+			$objListing = $this->Database->prepare("SELECT efg_DetailsKey FROM tl_module WHERE id = ?")
+								->execute($intListingId);
+			if ($objListing->numRows)
+			{
+				$arrListing = $objListing->fetchAssoc();
+			}
+		}
+
+		if (strlen($arrListing['efg_DetailsKey']))
+		{
+			$strFormdataDetailsKey = $arrListing['efg_DetailsKey'];
+		}
+		
+		return $strFormdataDetailsKey;
 	}
 }
 
