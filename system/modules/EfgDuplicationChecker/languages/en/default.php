@@ -30,6 +30,6 @@
 /**
  * Error messages
  */
-$GLOBALS['TL_LANG']['ERR']['duplicateError'] = 'There is already a record with the combination of the values ??in the fields: %s';
+$GLOBALS['TL_LANG']['ERR']['duplicateError'] = 'There is already a record with the combination of the values in the fields: %s';
  
 ?>
