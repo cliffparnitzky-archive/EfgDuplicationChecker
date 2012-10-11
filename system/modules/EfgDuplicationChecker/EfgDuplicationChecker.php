@@ -67,8 +67,12 @@ class EfgDuplicationChecker extends Backend
 					$dbField = $fieldName . "_label";
 					$fields[] = $records->$dbField;
 				}
-			
-				$objWidget->addError(sprintf($GLOBALS['TL_LANG']['ERR']['duplicateError'], implode(", ", $fields)));
+				
+				if (count($arrDuplicationCheckingFields) == 1) {
+					$objWidget->addError(sprintf($GLOBALS['TL_LANG']['ERR']['duplicateErrorSingle'], $fields[0]));
+				} else {
+					$objWidget->addError(sprintf($GLOBALS['TL_LANG']['ERR']['duplicateErrorMultiple'], implode(", ", $fields)));
+				}
 			}
 		}
 	    return $objWidget;

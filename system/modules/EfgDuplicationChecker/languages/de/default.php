@@ -30,6 +30,7 @@
 /**
  * Error messages
  */
-$GLOBALS['TL_LANG']['ERR']['duplicateError'] = 'Es existiert bereits ein Datensatz mit der Kombination der Werte in den Feldern: %s';
+$GLOBALS['TL_LANG']['ERR']['duplicateErrorSingle']   = 'Es existiert bereits ein Datensatz mit dem Wert in Feld "%s"!';
+$GLOBALS['TL_LANG']['ERR']['duplicateErrorMultiple'] = 'Es existiert bereits ein Datensatz mit der Kombination der Werte in den Feldern "%s"!';
  
 ?>
