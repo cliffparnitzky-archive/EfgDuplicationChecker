@@ -26,4 +26,4 @@ Compatibility
 Dependency
 ----------
 
-- This extension is dependent on the following extensions: [[efg]](http://contao.org/de/extension-list/view/efg.de.html)
+- This extension is dependent on the following extensions: [[efg]](http://contao.org/de/extension-list/view/efg.de.html) (max. version: 1.16.4)
