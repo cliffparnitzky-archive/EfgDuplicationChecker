@@ -1,7 +1,7 @@
 Contao Extension: EfgDuplicationChecker
 =======================================
 
-Adds duplication checking to the form generator.
+Adds duplication checking to the form generator when option `Store data in module "form data"` of [efg] is active.
 
 
 Installation
